@@ -13,7 +13,7 @@ long_description = (
     'Detailed Documentation\n'
     '======================\n'
     + '\n' +
-    read('src', 'isotoma', 'buildout', 'dumppickedversions', 'pickedversions.txt')
+    read('isotoma', 'buildout', 'dumppickedversions', 'pickedversions.txt')
     + '\n' +
     read('CHANGES.txt')
     + '\n' +
@@ -33,14 +33,14 @@ setup(name='isotoma.buildout.dumppickedversions',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'Topic :: Software Development :: Libraries :: Python Modules',
+        'Framework :: Buildout :: Extension',
         ],
       license='GPL',
       keywords='buildout extension dump picked versions',
       author='Chris Hannam',
       author_email='chris.hannam@isotoma.com',
       url='http://pypi.python.org/pypi/isotoma.buildout.dumppickedversions',
-      packages = find_packages('src'),
-      package_dir = {'':'src'},
+      packages = find_packages('.'),
       namespace_packages=['isotoma', 'isotoma.buildout'],
       include_package_data=True,
       zip_safe=False,
