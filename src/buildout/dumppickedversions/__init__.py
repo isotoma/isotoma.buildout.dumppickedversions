@@ -3,6 +3,7 @@ import sys
 import logging
 import zc.buildout.easy_install
 import pkg_resources
+from zc.buildout import UserError
 
 logger = zc.buildout.easy_install.logger
 
@@ -67,6 +68,9 @@ def dump_picked_versions(old_logging_shutdown, file_name, overwrite):
             print "*************** PICKED VERSIONS ****************"
             print picked_versions
             print "*************** /PICKED VERSIONS ***************"
+
+            if picked_versions:
+                raise zc.buildout.UserError('Invalid version')
 
         old_logging_shutdown()    
     return logging_shutdown
