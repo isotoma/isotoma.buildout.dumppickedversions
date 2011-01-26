@@ -13,12 +13,12 @@ Let's create an egg to use it in our tests::
     ...
 
 Now let's create a buildout to install the egg and to use 
-buildout.dumppickedversions::
+isotoma.buildout.dumppickedversions::
 
     >>> write('buildout.cfg',
     ... '''
     ... [buildout]
-    ... extensions = buildout.dumppickedversions
+    ... extensions = isotoma.buildout.dumppickedversions
     ... parts = foo
     ... find-links = %s
     ... index = http://pypi.python.org/simple
@@ -30,7 +30,7 @@ buildout.dumppickedversions::
 Running the buildout will print information about picked versions::
 
     >>> print system(buildout), # doctest: +ELLIPSIS
-    Getting distribution for 'buildout.dumppickedversions'.
+    Getting distribution for 'isotoma.buildout.dumppickedversions'.
     ...
     *************** PICKED VERSIONS ****************
     [versions]
@@ -47,7 +47,7 @@ option and give a file name::
     >>> write('buildout.cfg',
     ... '''
     ... [buildout]
-    ... extensions = buildout.dumppickedversions
+    ... extensions = isotoma.buildout.dumppickedversions
     ... dump-picked-versions-file = versions.cfg
     ... parts = foo
     ... find-links = 
@@ -90,7 +90,7 @@ When we don't want to overwrite the file we just add an
     >>> write('buildout.cfg',
     ... '''
     ... [buildout]
-    ... extensions = buildout.dumppickedversions
+    ... extensions = isotoma.buildout.dumppickedversions
     ... dump-picked-versions-file = versions.cfg
     ... overwrite-picked-versions-file = false
     ... parts = foo
@@ -117,7 +117,7 @@ Let's show an example. We will install zope.component::
     >>> write('buildout.cfg',
     ... '''
     ... [buildout]
-    ... extensions = buildout.dumppickedversions
+    ... extensions = isotoma.buildout.dumppickedversions
     ... dump-picked-versions-file = versions.cfg
     ... parts = foo
     ... index = http://pypi.python.org/simple
