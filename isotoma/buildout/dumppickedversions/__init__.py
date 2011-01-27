@@ -34,12 +34,13 @@ def enable_dumping_picked_versions(old_get_dist):
     return get_dist
 
 
-def dump_picked_versions(old_logging_shutdown, file_name, overwrite):
+def dump_picked_versions(old_logging_shutdown, file_name, error_on_mismatch, overwrite):
 
     def logging_shutdown():
 
         picked_versions_top = '[versions]\n'
         picked_versions_bottom = ''
+
         for d, v in sorted(zc.buildout.easy_install.Installer.__picked_versions.items()):
             if d in required_by:
                 req_ = "\n#Required by:\n#" + "\n#".join(required_by[d]) + "\n"
@@ -69,7 +70,7 @@ def dump_picked_versions(old_logging_shutdown, file_name, overwrite):
             print picked_versions
             print "*************** /PICKED VERSIONS ***************"
 
-            if picked_versions:
+            if error_on_mismatch and picked_versions:
                 raise zc.buildout.UserError('Invalid version')
 
         old_logging_shutdown()    
@@ -81,7 +82,9 @@ def install(buildout):
     file_name = 'dump-picked-versions-file' in buildout['buildout'] and \
                 buildout['buildout']['dump-picked-versions-file'].strip() or \
                 None
-                
+
+    enabled = buildout['buildout'].get('versioncheck', None) 
+
     overwrite = 'overwrite-picked-versions-file' not in buildout['buildout'] or \
                 buildout['buildout']['overwrite-picked-versions-file'].lower() \
                 in ['yes', 'true', 'on']
@@ -92,6 +95,7 @@ def install(buildout):
                                   zc.buildout.easy_install.Installer._get_dist)
     
     logging.shutdown = dump_picked_versions(logging.shutdown, 
-                                            file_name, 
+                                            file_name,
+                                            enabled,
                                             overwrite)
     
